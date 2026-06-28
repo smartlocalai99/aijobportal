@@ -84,16 +84,18 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Coin reward indicator in Navbar */}
-          <div id="navbar-coin-rewards" className="journey-rewards-nav flex items-center gap-2 px-3 py-1.5 border border-[#de9923]/30 rounded-full bg-[#fffcef]/95 text-[#6e4a0e] backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-transform duration-200">
-            <span className="reward-coin-nav grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#fff0a0] to-[#c77605] text-[#fff4b3] border border-[#ffe596] shadow-[0_0_8px_rgba(255,182,38,0.4)]">
-              <Star size={10} fill="currentColor" />
-            </span>
-            <div className="flex flex-col text-[10px] font-bold leading-tight">
-              <span className="text-[7px] uppercase tracking-wider text-black/40">Coins</span>
-              <strong className="coin-count-text text-xs tabular-nums">0 / 5</strong>
+          {/* Coin reward indicator — only shown outside classic mode */}
+          {router.pathname !== "/classic" && (
+            <div id="navbar-coin-rewards" className="journey-rewards-nav flex items-center gap-2 px-3 py-1.5 border border-[#de9923]/30 rounded-full bg-[#fffcef]/95 text-[#6e4a0e] backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-transform duration-200">
+              <span className="reward-coin-nav grid h-6 w-6 place-items-center rounded-full bg-gradient-to-br from-[#fff0a0] to-[#c77605] text-[#fff4b3] border border-[#ffe596] shadow-[0_0_8px_rgba(255,182,38,0.4)]">
+                <Star size={10} fill="currentColor" />
+              </span>
+              <div className="flex flex-col text-[10px] font-bold leading-tight">
+                <span className="text-[7px] uppercase tracking-wider text-black/40">Coins</span>
+                <strong className="coin-count-text text-xs tabular-nums">0 / 5</strong>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </header>
