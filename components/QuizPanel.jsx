@@ -6,11 +6,11 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null); // "correct" | "wrong" | null
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth <= 680 : false
+    typeof window !== "undefined" ? window.innerWidth <= 820 : false
   );
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 680);
+    const check = () => setIsMobile(window.innerWidth <= 820);
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
@@ -55,7 +55,7 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
   const desktopStyle = {
     top: "50%",
     [panelSide]: 28,
-    width: "min(320px, calc(100vw - 56px))",
+    width: "min(320px, calc(50vw - 56px))",
     borderRadius: 24,
   };
 
