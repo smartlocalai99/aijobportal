@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import SkillPickerScreen from "@/components/SkillPickerScreen";
 import QuizPanel from "@/components/QuizPanel";
@@ -17,6 +18,7 @@ const Scene = dynamic(() => import("@/components/Scene"), {
 });
 
 export default function Gamified() {
+  const router = useRouter();
   const [phase, setPhase] = useState("skill-picker"); // "skill-picker" | "game" | "complete"
   const [questions, setQuestions] = useState([]);
   const [milestones, setMilestones] = useState([]);
@@ -102,7 +104,7 @@ export default function Gamified() {
               Journey Complete!
             </h2>
             <p style={{ color: "#9ca3af", marginTop: 14, fontSize: 16, textAlign: "center", maxWidth: 340 }}>
-              You've mastered all 5 features on your career road.
+              You've mastered all {milestones.length} features on your career road.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 36, flexWrap: "wrap", justifyContent: "center" }}>
               <button
@@ -112,7 +114,7 @@ export default function Gamified() {
                 Play Again
               </button>
               <button
-                onClick={() => { if (typeof window !== "undefined") window.location.href = "/"; }}
+                onClick={() => router.push("/")}
                 style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 14, padding: "14px 28px", color: "#d1d5db", fontSize: 15, fontWeight: 700, cursor: "pointer" }}
               >
                 Change Mode
