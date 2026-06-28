@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
+import { Star } from "lucide-react";
 import SkillPickerScreen from "@/components/SkillPickerScreen";
 import QuizPanel from "@/components/QuizPanel";
 import { getQuestionsForSkill } from "@/lib/quizData";
@@ -72,6 +73,33 @@ export default function Gamified() {
         {phase === "game" && (
           <motion.div key="game" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ position: "relative" }}>
             <Scene targetProgressRef={targetProgressRef} />
+            <div
+              id="navbar-coin-rewards"
+              style={{
+                position: "fixed",
+                top: 16,
+                left: 16,
+                zIndex: 60,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 12px",
+                border: "1px solid rgba(222,153,35,0.3)",
+                borderRadius: 999,
+                background: "rgba(255,252,239,0.95)",
+                color: "#6e4a0e",
+                backdropFilter: "blur(8px)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+              }}
+            >
+              <span style={{ display: "grid", width: 24, height: 24, placeItems: "center", borderRadius: "50%", background: "linear-gradient(135deg, #fff0a0, #c77605)", color: "#fff4b3", border: "1px solid #ffe596", boxShadow: "0 0 8px rgba(255,182,38,0.4)" }}>
+                <Star size={10} fill="currentColor" />
+              </span>
+              <div style={{ display: "flex", flexDirection: "column", fontSize: 10, fontWeight: 700, lineHeight: 1.2 }}>
+                <span style={{ fontSize: 7, textTransform: "uppercase", letterSpacing: "0.05em", color: "rgba(0,0,0,0.4)" }}>Coins</span>
+                <strong className="coin-count-text" style={{ fontSize: 12, fontVariantNumeric: "tabular-nums" }}>0 / 5</strong>
+              </div>
+            </div>
             {currentQuestion && currentMilestone && (
               <QuizPanel
                 key={currentMilestoneIndex}

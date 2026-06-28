@@ -41,7 +41,7 @@ export default function Navbar() {
           {showBack && (
             <button
               onClick={() => router.push("/")}
-              className="hidden items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-2 text-[13px] font-700 text-[#4b5563] shadow-sm backdrop-blur-sm transition hover:bg-white md:flex"
+              className="hidden items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-2 text-[13px] font-bold text-[#4b5563] shadow-sm backdrop-blur-sm transition hover:bg-white md:flex"
             >
               <ArrowLeft size={14} />
               Change mode

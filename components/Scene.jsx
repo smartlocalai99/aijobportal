@@ -141,7 +141,7 @@ export function spawnCoinReward(rewardCount) {
 
         const count = counter.querySelector(".coin-count-text") || counter.querySelector("strong");
         if (count) {
-          count.textContent = `${rewardCount} / 8`;
+          count.textContent = `${rewardCount} / 5`;
         }
       }
       coin.remove();
