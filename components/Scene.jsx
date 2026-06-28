@@ -172,7 +172,7 @@ export const MILESTONES = [
     title: "AI Portfolio Builder",
     subtitle: "Turn your skills and projects into a portfolio that stands out.",
     progress: 0.32,
-    side: "right",
+    side: "left",
     color: "#9b78ff",
     Icon: PanelsTopLeft,
     images: [
@@ -196,7 +196,7 @@ export const MILESTONES = [
     title: "Global Jobs",
     subtitle: "Discover opportunities from companies hiring around the world.",
     progress: 0.72,
-    side: "right",
+    side: "left",
     color: "#65cf8b",
     Icon: BriefcaseBusiness,
     images: [

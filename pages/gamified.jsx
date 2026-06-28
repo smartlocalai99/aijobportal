@@ -6,8 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import SkillPickerScreen from "@/components/SkillPickerScreen";
 import QuizPanel from "@/components/QuizPanel";
 import Navbar from "@/components/Navbar";
-import { Star, ChevronDown, RotateCcw } from "lucide-react";
+import { Star, ChevronDown, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import { getQuestionsForSkill } from "@/lib/quizData";
+import { useGameMusic } from "@/lib/useGameMusic";
 
 const Scene = dynamic(() => import("@/components/Scene"), {
   ssr: false,
@@ -35,7 +36,10 @@ export default function Gamified() {
   const [questions, setQuestions] = useState([]);
   const [milestones, setMilestones] = useState([]);
   const [currentMilestoneIndex, setCurrentMilestoneIndex] = useState(0);
+  const [muted, setMuted] = useState(false);
   const targetProgressRef = useRef(0);
+
+  useGameMusic(phase === "game", muted);
 
   async function handleSkillSelect(skillId) {
     const qs = getQuestionsForSkill(skillId);
@@ -95,10 +99,30 @@ export default function Gamified() {
         {phase === "game" && (
           <motion.div key="game" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ position: "relative" }}>
             <Scene targetProgressRef={targetProgressRef} />
+            {/* Mute button */}
+            <button
+              onClick={() => setMuted(m => !m)}
+              title={muted ? "Unmute music" : "Mute music"}
+              style={{
+                position: "fixed", top: 16, left: 16, zIndex: 61,
+                width: 36, height: 36,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                borderRadius: "50%",
+                background: "rgba(255,252,239,0.95)",
+                border: "1px solid rgba(222,153,35,0.3)",
+                color: "#6e4a0e",
+                cursor: "pointer",
+                backdropFilter: "blur(8px)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+              }}
+            >
+              {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+            </button>
+
             <div
               id="navbar-coin-rewards"
               style={{
-                position: "fixed", top: 16, left: 16, zIndex: 60,
+                position: "fixed", top: 16, left: 60, zIndex: 60,
                 display: "flex", alignItems: "center", gap: 8,
                 padding: "6px 12px",
                 border: "1px solid rgba(222,153,35,0.3)",

@@ -36,10 +36,7 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
 
   if (!question) return null;
 
-  // Quiz panel sits on the OPPOSITE side from the milestone card
-  const panelSide = milestoneSide === "right" ? "left" : "right";
-  const enterX = panelSide === "right" ? 60 : -60;
-
+  // Quiz is always on the RIGHT; cards are always on the LEFT
   const mobileStyle = {
     bottom: 0,
     left: 0,
@@ -53,7 +50,7 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
 
   const desktopStyle = {
     top: "50%",
-    [panelSide]: 28,
+    right: 28,
     width: "min(320px, calc(50vw - 56px))",
     borderRadius: 24,
   };
@@ -61,9 +58,9 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
   return (
     <motion.div
       key={milestoneIndex}
-      initial={isMobile ? { opacity: 0, y: 60 } : { opacity: 0, x: enterX, scale: 0.95, y: "-50%" }}
+      initial={isMobile ? { opacity: 0, y: 60 } : { opacity: 0, x: 60, scale: 0.95, y: "-50%" }}
       animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0, scale: 1, y: "-50%" }}
-      exit={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: -enterX, y: "-50%" }}
+      exit={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: -40, y: "-50%" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       style={{
         position: "fixed",
