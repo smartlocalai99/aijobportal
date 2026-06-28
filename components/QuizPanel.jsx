@@ -5,12 +5,11 @@ import { CheckCircle2, XCircle } from "lucide-react";
 export default function QuizPanel({ question, milestoneIndex, onCorrect, milestoneTitle, milestoneColor, milestoneSide }) {
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null); // "correct" | "wrong" | null
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth <= 820 : false
-  );
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 820);
+    check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
