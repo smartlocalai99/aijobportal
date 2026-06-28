@@ -13,7 +13,6 @@ import {
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
-import { motion } from "framer-motion";
 import Character, { BOT_URL } from "./Character";
 
 const AUDIO_POOL_SIZE = 8;
