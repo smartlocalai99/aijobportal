@@ -2,9 +2,18 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle } from "lucide-react";
 
-export default function QuizPanel({ question, milestoneIndex, onCorrect, milestoneTitle, milestoneColor }) {
+export default function QuizPanel({ question, milestoneIndex, onCorrect, milestoneTitle, milestoneColor, milestoneSide }) {
   const [selected, setSelected] = useState(null);
   const [feedback, setFeedback] = useState(null); // "correct" | "wrong" | null
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= 680 : false
+  );
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 680);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     setSelected(null);
@@ -28,28 +37,46 @@ export default function QuizPanel({ question, milestoneIndex, onCorrect, milesto
 
   if (!question) return null;
 
+  // Quiz panel sits on the OPPOSITE side from the milestone card
+  const panelSide = milestoneSide === "right" ? "left" : "right";
+  const enterX = panelSide === "right" ? 60 : -60;
+
+  const mobileStyle = {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: "auto",
+    width: "100%",
+    borderRadius: "20px 20px 0 0",
+    maxHeight: "58vh",
+    overflowY: "auto",
+  };
+
+  const desktopStyle = {
+    top: "50%",
+    [panelSide]: 28,
+    width: "min(320px, calc(100vw - 56px))",
+    borderRadius: 24,
+  };
+
   return (
     <motion.div
       key={milestoneIndex}
-      initial={{ opacity: 0, x: 60, scale: 0.95 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, x: -40 }}
+      initial={isMobile ? { opacity: 0, y: 60 } : { opacity: 0, x: enterX, scale: 0.95, y: "-50%" }}
+      animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0, scale: 1, y: "-50%" }}
+      exit={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: -enterX, y: "-50%" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       style={{
         position: "fixed",
-        right: 28,
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: "min(340px, calc(100vw - 56px))",
+        zIndex: 50,
         background: "rgba(8,8,18,0.92)",
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
         border: `1.5px solid ${milestoneColor}44`,
-        borderRadius: 24,
         padding: 24,
-        zIndex: 50,
         boxShadow: `0 0 48px ${milestoneColor}22, 0 24px 64px rgba(0,0,0,0.65)`,
         pointerEvents: "auto",
+        ...(isMobile ? mobileStyle : desktopStyle),
       }}
     >
       <div style={{ marginBottom: 18 }}>
